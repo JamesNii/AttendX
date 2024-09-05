@@ -12,7 +12,7 @@ app.secret_key = 'your_secret_key'
 
 ZOOM_CLIENT_ID = 'gJX1DO2EQee0U9mxQP7_FQ'
 ZOOM_CLIENT_SECRET = 'DvxQtuRovhFY1cSV50eBhFu2xaRgbZA1'
-ZOOM_REDIRECT_URI = 'https://7737-154-161-46-118.ngrok-free.app/callback'
+ZOOM_REDIRECT_URI = 'https://attendx-r2pm.onrender.com/callback'
 ZOOM_WEBHOOK_SECRET_TOKEN = 'fDsRUHSZTfyehR-qTm1I_A'  
 attendance_data = {}
 
