@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoom Meeting Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="icon-container active" id="create-meeting-icon" onclick="navigateTo('meeting-setup')">
+            <div class="icon">📅</div>
+            <div class="icon-label">Meeting Setup</div>
+        </div>
+        <div class="icon-container" id="attendance-icon" onclick="navigateTo('attendance')">
+            <div class="icon">📝</div>
+            <div class="icon-label">Attendance</div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <section id="meeting-setup" class="active">
+            <h1>Zoom Meeting Setup</h1>
+            <form id="meeting-form">
+                <label for="topic">Topic:</label>
+                <input type="text" id="topic" name="topic" required><br>
+                <label for="start_time">Start Time:</label>
+                <input type="datetime-local" id="start_time" name="start_time" required><br>
+                <button type="submit" id="create-button">
+                    Create Meeting <span id="loading-spinner">🔄</span>
+                </button>
+            </form>
+        </section>
+
+        <section id="attendance">
+            <h1>Attendance</h1>
+            <div style="display: flex; align-items: center;">
+                <input type="text" id="meeting_id" placeholder="Enter Meeting ID" style="margin-right: 10px;">
+                <button onclick="loadAttendance()">Load Attendance</button>
+                <label style="margin-left: 20px; margin-right: 10px;">Auto-Update:</label>
+                <input type="checkbox" id="auto-update-toggle" style="margin-right: 10px;">
+                <label for="update-interval" style="margin-right: 10px;">Interval (secs):</label>
+                <input type="number" id="update-interval" min="1" value="10" style="width: 60px;">
+            </div>
+            <div id="attendance-loading">Loading attendance...</div>
+            <p id="meeting_link"></p>
+            <table border="1" id="attendance_table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Join Time</th>
+                        <th>Leave Time</th>
+                        <th>Join Counter</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <button onclick="downloadAttendance('csv')">Download as CSV</button>
+            <button onclick="downloadAttendance('pdf')">Download as PDF</button>
+        </section>
+    </div>
+
+    <!-- Modal for success/error messages -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">×</span>
+            <p id="modal-message"></p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
