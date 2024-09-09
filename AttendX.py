@@ -35,7 +35,7 @@ def get_zoom_token(authorization_code):
     print("Zoom token response:", response.text)  # Log the full response text
     return response.json()
 
-def create_zoom_meeting(access_token, topic, start_time, co_host_email):
+def create_zoom_meeting(access_token, topic, start_time, co_host_email, join_before_host):
     url = f'https://api.zoom.us/v2/users/me/meetings'
     headers = {
         'Authorization': f'Bearer {access_token}',
@@ -46,7 +46,8 @@ def create_zoom_meeting(access_token, topic, start_time, co_host_email):
         'type': 2,
         'start_time': start_time,
         'settings': {
-            'alternative_hosts': co_host_email
+            'alternative_hosts': co_host_email,
+            'join_before_host': join_before_host
         }
     }
     response = requests.post(url, headers=headers, data=json.dumps(payload))
@@ -251,8 +252,9 @@ def create_meeting():
     topic = data.get('topic')
     start_time = data.get('start_time')
     co_host_email = data.get('co_host_email')
+    join_before_host = True
     access_token = session['zoom_access_token']
-    meeting_info = create_zoom_meeting(access_token, topic, start_time, co_host_email)
+    meeting_info = create_zoom_meeting(access_token, topic, start_time, co_host_email, join_before_host)
     meeting_id = meeting_info.get('id')
     attendance_data[meeting_id] = {}
     return jsonify(meeting_info)
