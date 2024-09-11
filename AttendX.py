@@ -162,7 +162,7 @@ def download_attendance(meeting_id):
     # Retrieve the attendance data for the given meeting_id
     attendance = attendance_data.get(meeting_id, {})
     
-    # Extract the meeting topic (if it exists) and current date
+    # Extract the meeting topic and current date
     meeting_topic = attendance.get('topic', 'Meeting')
     current_date = datetime.now().strftime('%Y-%m-%d')
     
@@ -201,7 +201,7 @@ def download_attendance(meeting_id):
         pdf.cell(60, 10, "Email", border=1)
         pdf.cell(60, 10, "Join Time", border=1)
         pdf.cell(60, 10, "Leave Time", border=1)
-        pdf.cell(30, 10, "Join Count", border=1)  # Adjusted for landscape layout
+        pdf.cell(30, 10, "Join Count", border=1) 
         pdf.ln()
 
         # Participant rows
